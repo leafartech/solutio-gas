@@ -125,7 +125,7 @@ export default function Page() {
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2 text-left">
               <h2 className="text-3xl font-bold text-white">Atendimento <span className="text-green">humanizado</span></h2>
-              <p className="text-lg text-zinc-200">Nossa equipe comercial e técnica estará sempre a disposição para te ajudar a usar o sistema da melhor forma</p>
+              <p className="text-lg text-zinc-200">Nossa equipe comercial e técnica estará sempre a disposição para te ajudar a usar o sistema da melhor forma.</p>
             </div>
             <div className="w-full sm:max-w-3xl flex justify-start">
               <ul className="w-full flex flex-col sm:flex-row gap-8">
@@ -166,7 +166,7 @@ export default function Page() {
               </ul>
             </div>
           </div>
-          <div className="h-full flex items-center justify-end">
+          <div className="h-full flex items-center justify-end sm:pe-24">
             <div className="flex flex-col items-center gap-8">
               <div className="w-full flex flex-col gap-4 sm:items-center ">
                 <ul className="flex gap-4">
