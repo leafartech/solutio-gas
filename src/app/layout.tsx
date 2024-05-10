@@ -25,16 +25,6 @@ export default function RootLayout({
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-TNLTMHX')
         `}} />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NLWZYHT2N"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-  
-            gtag('config', 'G-0NLWZYHT2N');
-        `}} />
-
       </head>
       <body className={roboto.className}>
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNLTMHX"></iframe></noscript>
