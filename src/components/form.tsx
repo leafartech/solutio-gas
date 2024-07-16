@@ -97,6 +97,7 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
             <div className={`fixed top-0 left-0 h-full w-full flex items-center justify-center ${isFormOpen ? 'z-50' : 'opacity-0 -z-50'}`}>
                 <div onClick={() => setIsFormOpen(!isFormOpen)} className="absolute h-full w-full bg-black/60"></div>
                 <form
+                    id="data_form"
                     className="relative rounded-md w-full sm:max-w-xl z-50 px-6 sm:mx-0 mx-2 bg-white py-6"
                     onSubmit={(e) => formSubmited(e)}
                 >
