@@ -37,9 +37,18 @@ let initialData = {
 
 export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_term, isFormOpen, setIsFormOpen }: FormProps) {
     const [data, setData] = useState(initialData)
+    const [fieldsOk, setFieldsOk] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
     const router = useRouter()
+
+    useEffect(() => {
+        let hlp = Object.values(data).slice(0, 4).map(item => item.length > 0 ? 'ok' : '')
+        let hlp2 = false
+        hlp.map(item => item.length > 0 ? hlp2 = true : hlp2 = false)
+
+        setFieldsOk(hlp2)
+    }, [data])
 
     function handleChange(type: keyof typeof initialData, value: string) {
         let hlp = { ...data }
@@ -120,7 +129,7 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                                 <input onChange={(e) => handleChange('cnpj', e.target.value)} value={data.cnpj} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="cnpj" name="cnpj" minLength={18} maxLength={18} placeholder="CNPJ" required />
                                 <p className="text-xs text-zinc-500 translate-x-3">Para CNPJ, siga o formato: 00.000.000/0001-00</p>
                             </div>
-                            <button className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
+                            <button id={fieldsOk ? 'btn-ok' : ''} className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
                                 {!loading ? (
                                     <span>Agendar demonstração</span>
                                 ) : (
@@ -155,4 +164,3 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
     )
 }
 
-     
