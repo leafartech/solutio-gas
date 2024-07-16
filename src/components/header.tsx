@@ -1,7 +1,13 @@
 import Image from 'next/image'
 import { Button } from "./button";
+import { SetStateAction } from 'react';
 
-export function Header() {
+interface HeaderProps {
+    isFormOpen: boolean
+    setIsFormOpen: React.Dispatch<SetStateAction<boolean>>
+}
+
+export function Header({ isFormOpen, setIsFormOpen }: HeaderProps) {
     return (
         <header className="relative sm:h-screen w-full flex items-center justify-center pt-24 sm:pt-0 px-4">
             <div className="z-50 py-4 w-full fixed top-0 left-0 flex justify-center items-center border-b border-green bg-white">
@@ -18,7 +24,10 @@ export function Header() {
                 <h1 className="text-3xl sm:text-5xl font-bold"><span className="text-green">Aumente a lucratividade</span>, acabe com os atrasos e nunca mais perca um cliente para a concorrência!</h1>
                 <p className="text-xl text-zinc-600">Tire pedidos, gere relatórios financeiros e fiscais com apenas um clique</p>
                 <div className="sm:hidden">
-                    <Button />
+                    <Button 
+                        isFormOpen={isFormOpen}
+                        setIsFormOpen={setIsFormOpen}
+                    />
                 </div>
                 <div className="w-full flex justify-center sm:absolute sm:left-0 sm:bottom-28">
                     <div className="w-full max-w-4xl sm:grid sm:grid-cols-3 flex flex-col gap-4 text-left">
@@ -47,7 +56,10 @@ export function Header() {
                 </div>
                 <div className="absolute bottom-8 left-0 w-full sm:flex hidden justify-center">
                     <div className="w-full max-w-md">
-                        <Button />
+                        <Button 
+                            isFormOpen={isFormOpen}
+                            setIsFormOpen={setIsFormOpen}
+                        />
                     </div>
                 </div>
             </div>

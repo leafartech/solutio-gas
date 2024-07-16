@@ -1,20 +1,41 @@
+'use client'
+
 import Team from "@/components/MySwiper/team";
 import { Button } from "@/components/button";
+import { Form } from "@/components/form";
 import { Header } from "@/components/header";
 import Heroflex from "@/components/heroflex";
 import Section from "@/components/section";
 import { CheckBadgeIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
+import { useState } from "react";
 
-export default function Page() {
+interface PageProps {
+  searchParams: {
+    utm_term: string
+    utm_medium: string
+    utm_content: string
+    utm_campaign: string
+    utm_source: string
+  }
+}
+
+export default function Page({ searchParams }: PageProps) {
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false)
+
   return (
     <div className="bg-zinc-50">
-      <Header />
+      <Header
+        isFormOpen={isFormOpen}
+        setIsFormOpen={setIsFormOpen}
+      />
       <main className="pt-8 sm:pt-24">
         <Section className=" px-4 pb-12 sm:pb-20"
         >
           <div className="flex flex-col gap-0">
             <Heroflex
+              isFormOpen={isFormOpen}
+              setIsFormOpen={setIsFormOpen}
               imagePath="bg1"
               title={<span>A <span className="text-green">SolutioGás</span> aumenta o lucro da sua revenda!</span>}
             >
@@ -31,6 +52,8 @@ export default function Page() {
               </ul>
             </Heroflex>
             <Heroflex
+              isFormOpen={isFormOpen}
+              setIsFormOpen={setIsFormOpen}
               reverse={true}
               imagePath="bg2"
               title={<span>Em menos de <span className="text-green">30 segundos</span> você atende o pedido e o entregador mais próximo já é acionado.</span>}
@@ -48,7 +71,10 @@ export default function Page() {
             <div className="w-full">
               <Team />
             </div>
-            <Button />
+            <Button
+              isFormOpen={isFormOpen}
+              setIsFormOpen={setIsFormOpen}
+            />
           </div>
         </Section>
         <Section className="px-4 py-12 sm:py-20" classNameS="bg-green">
@@ -93,6 +119,8 @@ export default function Page() {
         </Section>
         <Section className="px-4 pb-12 sm:pb-20">
           <Heroflex
+            isFormOpen={isFormOpen}
+            setIsFormOpen={setIsFormOpen}
             thrueReverse={true}
             imagePath="bg1"
             title={<span>Sistema <span className="text-green">financeiro e fiscal</span> em um só lugar!</span>}
@@ -207,6 +235,11 @@ export default function Page() {
           </div>
         </div>
       </footer>
+      <Form
+        isFormOpen={isFormOpen}
+        setIsFormOpen={setIsFormOpen}
+        {...searchParams}
+      />
     </div>
   )
 }
