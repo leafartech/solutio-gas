@@ -102,7 +102,7 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
 
     return (
         <>
-            <button className="uppercase py-3 px-12 bg-[#01b013] hover:bg-[#01b013de] transition text-white font-bold rounded-full text-sm" onClick={() => setIsFormOpen(!isFormOpen)}>Quero levar minha revenda ao próximo nível</button>
+            {/* <button className="uppercase py-3 px-12 bg-[#01b013] hover:bg-[#01b013de] transition text-white font-bold rounded-full text-sm" onClick={() => setIsFormOpen(!isFormOpen)}>Quero levar minha revenda ao próximo nível</button> */}
             <div className={`fixed top-0 left-0 h-full w-full flex items-center justify-center ${isFormOpen ? 'z-50' : 'opacity-0 -z-50'}`}>
                 <div onClick={() => setIsFormOpen(!isFormOpen)} className="absolute h-full w-full bg-black/60"></div>
                 <form
@@ -157,7 +157,6 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                             <p className="text-center text-zinc-700 text-xl font-medium">{message}</p>
                         </div>
                     )}
-
                 </form>
             </div>
         </>
