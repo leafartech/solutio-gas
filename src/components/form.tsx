@@ -129,20 +129,37 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                                 <input onChange={(e) => handleChange('cnpj', e.target.value)} value={data.cnpj} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="cnpj" name="cnpj" minLength={18} maxLength={18} placeholder="CNPJ" required />
                                 <p className="text-xs text-zinc-500 translate-x-3">Para CNPJ, siga o formato: 00.000.000/0001-00</p>
                             </div>
-                            <button id={fieldsOk ? 'btn-ok' : ''} className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
-                                {!loading ? (
-                                    <span>Agendar demonstração</span>
-                                ) : (
-                                    <>
-                                        <div className="flex flex-row gap-1 py-1">
-                                            <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce"></div>
-                                            <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.3s]"></div>
-                                            <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.5s]"></div>
-                                        </div>
-                                    </>
-                                    // <div className="w-5 h-5 border-2 text-blue-400 animate-spin flex items-center justify-center border-t-[#1b2d51] rounded-full"></div>
-                                )}
-                            </button>
+                            {fieldsOk ? (
+                                <button id={'btn-ok'} className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
+                                    {!loading ? (
+                                        <span>Agendar demonstração</span>
+                                    ) : (
+                                        <>
+                                            <div className="flex flex-row gap-1 py-1">
+                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce"></div>
+                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.3s]"></div>
+                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.5s]"></div>
+                                            </div>
+                                        </>
+                                        // <div className="w-5 h-5 border-2 text-blue-400 animate-spin flex items-center justify-center border-t-[#1b2d51] rounded-full"></div>
+                                    )}
+                                </button>
+                            ) : (
+                                <button className="w-full cursor-not-allowed text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
+                                    {!loading ? (
+                                        <span>Agendar demonstração</span>
+                                    ) : (
+                                        <>
+                                            <div className="flex flex-row gap-1 py-1">
+                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce"></div>
+                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.3s]"></div>
+                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.5s]"></div>
+                                            </div>
+                                        </>
+                                        // <div className="w-5 h-5 border-2 text-blue-400 animate-spin flex items-center justify-center border-t-[#1b2d51] rounded-full"></div>
+                                    )}
+                                </button>
+                            )}
                             <div>
                                 <input type="hidden" id="utm_term" value={utm_term || 'AQUI'} name="utm_term" placeholder="utm_term" />
                                 <input type="hidden" id="utm_medium" value={utm_medium || 'AQUI'} name="utm_medium" placeholder="utm_medium" />
@@ -157,8 +174,8 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                             <p className="text-center text-zinc-700 text-xl font-medium">{message}</p>
                         </div>
                     )}
-                </form>
-            </div>
+                </form >
+            </div >
         </>
     )
 }
