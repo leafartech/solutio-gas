@@ -145,7 +145,7 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                                     )}
                                 </button>
                             ) : (
-                                <button className="w-full cursor-not-allowed text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
+                                <button className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
                                     {!loading ? (
                                         <span>Agendar demonstração</span>
                                     ) : (
