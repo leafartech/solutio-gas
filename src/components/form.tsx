@@ -44,10 +44,16 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
 
     useEffect(() => {
         let hlp = Object.values(data).slice(0, 4).map(item => item.length > 0 ? 'ok' : '')
-        let hlp2 = false
-        hlp.map(item => item.length > 0 ? hlp2 = true : hlp2 = false)
+        let cont = 0
+        hlp.map(item => item.length > 0 && cont ++)
 
-        setFieldsOk(hlp2)
+        if (cont == 4) {
+            setFieldsOk(true)
+        } else {
+            setFieldsOk(false)
+        }
+
+
     }, [data])
 
     function handleChange(type: keyof typeof initialData, value: string) {
