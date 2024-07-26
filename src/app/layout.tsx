@@ -27,7 +27,8 @@ export default function RootLayout({
         `}} />
       </head>
       <body className={roboto.className}>
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNLTMHX"></iframe></noscript>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNLTMHX"
+          height="0" width="0"></iframe></noscript>
         {children}
       </body>
     </html>
