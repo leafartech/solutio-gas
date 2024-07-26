@@ -141,23 +141,11 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                                                 <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.5s]"></div>
                                             </div>
                                         </>
-                                        // <div className="w-5 h-5 border-2 text-blue-400 animate-spin flex items-center justify-center border-t-[#1b2d51] rounded-full"></div>
                                     )}
                                 </button>
                             ) : (
                                 <button className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
-                                    {!loading ? (
-                                        <span>Agendar demonstração</span>
-                                    ) : (
-                                        <>
-                                            <div className="flex flex-row gap-1 py-1">
-                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce"></div>
-                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.3s]"></div>
-                                                <div className="w-2 h-2 rounded-full bg-white/60 animate-bounce [animation-delay:-.5s]"></div>
-                                            </div>
-                                        </>
-                                        // <div className="w-5 h-5 border-2 text-blue-400 animate-spin flex items-center justify-center border-t-[#1b2d51] rounded-full"></div>
-                                    )}
+                                    <span>Preencha os campos acima</span>
                                 </button>
                             )}
                             <div>
