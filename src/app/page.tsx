@@ -3,6 +3,7 @@
 import Team from "@/components/MySwiper/team";
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
+import { FormFinder } from "@/components/form-finder";
 import { Header } from "@/components/header";
 import Heroflex from "@/components/heroflex";
 import Section from "@/components/section";
@@ -235,7 +236,7 @@ export default function Page({ searchParams }: PageProps) {
           </div>
         </div>
       </footer>
-      <Form
+      <FormFinder
         isFormOpen={isFormOpen}
         setIsFormOpen={setIsFormOpen}
         {...searchParams}
