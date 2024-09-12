@@ -94,6 +94,8 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
         e.preventDefault()
         let dataHlp = data
 
+        let newCnpj = cnpjSend.replace('.', '').replace('.', '').replace('/', '').replace('-', '')
+
         const formatedData = {
             "codigoApi": "1FB031DBAB",
             "origemOportunidade": "Integração",
@@ -102,14 +104,14 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
                 "nomeLead": data.name,
                 "telefoneLead": data.phone,
                 "emailLead": data.email,
-                "cnpjLead": cnpjSend,
+                "cnpjLead": newCnpj,
                 "origemLead": "Página de captura",
             },
             "contato": {
                 "nomeContato": data.name,
                 "telefoneContato": data.phone,
                 "emailContato": data.email,
-                "cnpjContato": cnpjSend,
+                "cnpjContato": newCnpj,
                 "codigoLead": null
             },
             "followups": [
