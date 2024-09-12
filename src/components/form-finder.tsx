@@ -41,7 +41,7 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
     const [loading, setLoading] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
     const router = useRouter()
-    const [cnpj, setCnpj] = useState<string>('')
+    const [cnpjSend, setCnpj] = useState<string>('')
 
     useEffect(() => {
         let hlp = Object.values(data).slice(0, 4).map(item => item.length > 0 ? 'ok' : '')
@@ -82,8 +82,8 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
         if (type === 'phone') {
             hlp[type] = formatPhone(value)
         } else if (type === 'cnpj') {
-            hlp[type] = formatCNPJ(value);
             setCnpj(value)
+            hlp[type] = formatCNPJ(value);
         } else {
             hlp[type] = value
         }
@@ -102,14 +102,14 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
                 "nomeLead": data.name,
                 "telefoneLead": data.phone,
                 "emailLead": data.email,
-                "cnpjLead": cnpj,
+                "cnpjLead": cnpjSend,
                 "origemLead": "Página de captura",
             },
             "contato": {
                 "nomeContato": data.name,
                 "telefoneContato": data.phone,
                 "emailContato": data.email,
-                "cnpjContato": cnpj,
+                "cnpjContato": cnpjSend,
                 "codigoLead": null
             },
             "followups": [
