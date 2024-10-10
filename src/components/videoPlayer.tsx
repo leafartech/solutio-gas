@@ -19,7 +19,7 @@ export default function VideoPlayer() {
                 videoRef?.current?.play()
 
                 new Plyr(videoRef?.current, {
-                    controls: ['play', 'progress', 'mute', 'volume', 'fullscreen'],
+                    controls: ['play', 'progress', 'mute', 'volume'],
                 });
             }
 
