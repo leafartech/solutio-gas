@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Button } from "./button";
 import { SetStateAction } from 'react';
+import VideoPlayer from './videoPlayer';
 
 interface HeaderProps {
     isFormOpen: boolean
@@ -9,7 +10,7 @@ interface HeaderProps {
 
 export function Header({ isFormOpen, setIsFormOpen }: HeaderProps) {
     return (
-        <header className="relative sm:h-screen w-full flex items-center justify-center pt-24 sm:pt-0 px-4">
+        <header className="relative sm:min-h-screen w-full flex items-center justify-center pt-24 sm:pt-0 px-4">
             <div className="z-50 py-4 w-full fixed top-0 left-0 flex justify-center items-center border-b border-green bg-white">
                 <div className="w-24">
                     <Image
@@ -20,16 +21,28 @@ export function Header({ isFormOpen, setIsFormOpen }: HeaderProps) {
                     />
                 </div>
             </div>
-            <div className="z-10 w-full max-w-4xl sm:text-center flex flex-col gap-4 sm:pb-24">
+            <div className="z-10 w-full max-w-4xl sm:text-center flex flex-col gap-4 sm:gap-8 sm:translate-y-32 sm:pb-24">
                 <h1 className="text-3xl sm:text-5xl font-bold"><span className="text-green">Aumente a lucratividade</span>, acabe com os atrasos e nunca mais perca um cliente para a concorrência!</h1>
                 <p className="text-xl text-zinc-600">Tire pedidos, gere relatórios financeiros e fiscais com apenas um clique</p>
+                <div className="flex justify-center">
+                    <VideoPlayer />
+                </div>
+                <div className="w-full sm:flex hidden justify-center">
+                    <div className="w-full max-w-md">
+                        <Button
+                            isFormOpen={isFormOpen}
+                            setIsFormOpen={setIsFormOpen}
+                        />
+                    </div>
+                </div>
                 <div className="sm:hidden">
-                    <Button 
+                    <Button
                         isFormOpen={isFormOpen}
                         setIsFormOpen={setIsFormOpen}
                     />
                 </div>
-                <div className="w-full flex justify-center sm:absolute sm:left-0 sm:bottom-28">
+                {/* <div className="w-full flex justify-center sm:absolute sm:left-0 sm:bottom-28"> */}
+                <div className="w-full flex justify-center">
                     <div className="w-full max-w-4xl sm:grid sm:grid-cols-3 flex flex-col gap-4 text-left">
                         <div className="flex flex-col items-start border border-zinc-300 rounded px-6 py-4">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 fill-green" viewBox="0 0 24 24" fill="none">
@@ -54,14 +67,15 @@ export function Header({ isFormOpen, setIsFormOpen }: HeaderProps) {
                         </div>
                     </div>
                 </div>
-                <div className="absolute bottom-8 left-0 w-full sm:flex hidden justify-center">
+                {/* <div className="absolute bottom-8 left-0 w-full sm:flex hidden justify-center"> */}
+                {/* <div className="w-full sm:flex hidden justify-center">
                     <div className="w-full max-w-md">
-                        <Button 
+                        <Button
                             isFormOpen={isFormOpen}
                             setIsFormOpen={setIsFormOpen}
                         />
                     </div>
-                </div>
+                </div> */}
             </div>
         </header>
     )
