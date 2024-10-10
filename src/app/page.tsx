@@ -2,7 +2,7 @@
 
 import Team from "@/components/MySwiper/team";
 import { Button } from "@/components/button";
-import { Form } from "@/components/form";
+// import { Form } from "@/components/form";
 import { FormFinder } from "@/components/form-finder";
 import { Header } from "@/components/header";
 import Heroflex from "@/components/heroflex";

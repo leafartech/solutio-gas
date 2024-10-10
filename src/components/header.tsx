@@ -1,7 +1,11 @@
 import Image from 'next/image'
 import { Button } from "./button";
 import { SetStateAction } from 'react';
-import VideoPlayer from './videoPlayer';
+import dynamic from 'next/dynamic';
+
+const VideoPlayer = dynamic(() => import('@/components/videoPlayer'), {
+    ssr: false,
+  });
 
 interface HeaderProps {
     isFormOpen: boolean
