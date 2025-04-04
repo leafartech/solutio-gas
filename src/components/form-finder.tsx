@@ -96,6 +96,12 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
 
         let newCnpj = cnpjSend.replace('.', '').replace('.', '').replace('/', '').replace('-', '')
 
+        const utm_campaign = new URLSearchParams(window.location.search).get('utm_campaign') || 'nao-traqueado'
+        const utm_content = new URLSearchParams(window.location.search).get('utm_content') || 'nao-traqueado'
+        const utm_medium = new URLSearchParams(window.location.search).get('utm_medium') || 'nao-traqueado'
+        const utm_source = new URLSearchParams(window.location.search).get('utm_source') || 'nao-traqueado'
+        const utm_term = new URLSearchParams(window.location.search).get('utm_term') || 'nao-traqueado'
+
         const formatedData = {
             "codigoApi": "1FB031DBAB",
             "origemOportunidade": "Integração",
@@ -107,6 +113,7 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
                 "cnpjLead": newCnpj,
                 "origemLead": "Página de captura",
             },
+            "tags" : [`${utm_campaign}`,`${utm_source}`, `${utm_medium}`, `${utm_content}`, `${utm_term}`], 
             "contato": {
                 "nomeContato": data.name,
                 "telefoneContato": data.phone,
@@ -133,12 +140,6 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
 
         setData(dataHlp)
         setLoading(true)
-
-        dataHlp['utm_campaign'] = window.location.href.split('?')[1]?.split("&")[0]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_content'] = window.location.href.split('?')[1]?.split("&")[1]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_medium'] = window.location.href.split('?')[1]?.split("&")[1]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_source'] = window.location.href.split('?')[1]?.split("&")[2]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_term'] = window.location.href.split('?')[1]?.split("&")[3]?.split("=")[1] || 'AQUI'
 
         await fetch("https://api.leadfinder.com.br/integracao/v2/inserirOportunidade", {
             method: "POST",
@@ -177,7 +178,7 @@ export function FormFinder({ utm_campaign, utm_content, utm_medium, utm_source, 
                                 <input onChange={(e) => handleChange('email', e.target.value)} value={data.email} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="text" id="email" name="email" placeholder="Insira seu melhor e-mail" required autoComplete="email" />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <input onChange={(e) => handleChange('phone', e.target.value)} value={data.phone} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="tel" id="tel" name="phone" maxLength={16} placeholder="WhatsApp: (00) 00000-0000" required />
+                                <input onChange={(e) => handleChange('phone', e.target.value)} value={data.phone} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="tel" id="tel" name="phone" maxLength={15} placeholder="WhatsApp: (00) 00000-0000" required />
                             </div>
                             <div className="flex flex-col gap-1">
                                 <input onChange={(e) => handleChange('cnpj', e.target.value)} value={data.cnpj} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="cnpj" name="cnpj" minLength={18} maxLength={18} placeholder="CNPJ" required />

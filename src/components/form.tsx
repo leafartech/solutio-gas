@@ -45,7 +45,7 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
     useEffect(() => {
         let hlp = Object.values(data).slice(0, 4).map(item => item.length > 0 ? 'ok' : '')
         let cont = 0
-        hlp.map(item => item.length > 0 && cont ++)
+        hlp.map(item => item.length > 0 && cont++)
 
         if (cont == 4) {
             setFieldsOk(true)
@@ -66,44 +66,81 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
         setData(hlp)
     }
 
-    function formatPhoneNumber(value: string) {
-        if (value.length > data.phone.length) {
-            if (value.length <= 1) {
-                value = `(${value}`
-            } else if (value.length <= 3) {
-                value = `${value}) 9 `
-            } else if (value.length === 11) {
-                value = `${value}-`
-            }
-        }
+    function formatPhoneNumber(phone: string): string {
+        console.log('aq', phone.length)
+        if (phone.length === 14) 
+            return phone
 
-        return value
+        phone = phone.replace(/\D/g, '');
+
+        phone = phone.replace(/^(\d{2})(\d)/, '($1) $2');
+        phone = phone.replace(/(\d{5})(\d)/, '$1-$2');
+
+        return phone;
     }
 
-    async function formSubmited(e: FormEvent) {
-        e.preventDefault()
+    // async function formSubmited(e: FormEvent) {
+    async function formSubmited() {
+        // e.preventDefault()
         let dataHlp = data
 
         setData(dataHlp)
         setLoading(true)
 
-        dataHlp['utm_campaign'] = window.location.href.split('?')[1]?.split("&")[0]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_content'] = window.location.href.split('?')[1]?.split("&")[1]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_medium'] = window.location.href.split('?')[1]?.split("&")[1]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_source'] = window.location.href.split('?')[1]?.split("&")[2]?.split("=")[1] || 'AQUI'
-        dataHlp['utm_term'] = window.location.href.split('?')[1]?.split("&")[3]?.split("=")[1] || 'AQUI'
+        const utm_campaign = new URLSearchParams(window.location.search).get('utm_campaign') || 'nao-traqueado'
+        const utm_content = new URLSearchParams(window.location.search).get('utm_content') || 'nao-traqueado'
+        const utm_medium = new URLSearchParams(window.location.search).get('utm_medium') || 'nao-traqueado'
+        const utm_source = new URLSearchParams(window.location.search).get('utm_source') || 'nao-traqueado'
+        const utm_term = new URLSearchParams(window.location.search).get('utm_term') || 'nao-traqueado'
 
-        await fetch("https://webhook.sellflux.com/webhook/v2/form/lead/a6e1e573af474bb4a6f84740f4344f3a?redirect_url=google.com", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
+        let newCnpj = data.cnpj.replace('.', '').replace('.', '').replace('/', '').replace('-', '')
+
+        const formatedData = {
+            "codigoApi": "4C0A71636E",
+            "origemOportunidade": "Integração",
+            "lead": {
+                "nomeLead": data.name,
+                "telefoneLead": data.phone,
+                "emailLead": data.email,
+                "cnpjLead": newCnpj,
+                "origemLead": "Página de captura",
             },
-            body: JSON.stringify(data)
-        }).then(async res => {
-            setLoading(false)
-            setMessage('Muito bem! Nossa equipe entrará em contato com você pelo WhatsApp!')
-        }).catch(e => console.log(e))
+            "tags": [`${utm_campaign}`, `${utm_source}`, `${utm_medium}`, `${utm_content}`, `${utm_term}`],
+            "contato": {
+                "nomeContato": data.name,
+                "telefoneContato": data.phone,
+                "emailContato": data.email,
+                "codigoLead": null
+            },
+            "followups": [
+                {
+                    "textoFollowup": "Essa oportunidade foi criada a partir da API de integração da LeadFinder",
+                    "dataFollwup": null,
+                    "codigoOportunidade": null,
+                    "notificar": true
+                },
+                {
+                    "textoFollowup": "É possivel inserir followups com os historicos da oportunidade via API",
+                    "dataFollwup": null,
+                    "codigoOportunidade": null,
+                    "notificar": true
+                }
+            ],
+            "followup": null
+        }
+
+        // await fetch("https://api.leadfinder.com.br/integracao/v2/inserirOportunidade", {
+        //     method: "POST",
+        //     headers: {
+        //         "Accept": "application/json",
+        //         "Content-Type": "application/json",
+        //         "Authorization": "F32300EDBAE823485E8132E084A0F0626AE1F3ED25B026C3980A7702C6EAFF30"
+        //     },
+        //     body: JSON.stringify(formatedData)
+        // }).then(async res => {
+        //     setLoading(false)
+        //     setMessage('Muito bem! Nossa equipe entrará em contato com você pelo WhatsApp!')
+        // }).catch(e => console.log(e))
     }
 
     return (
@@ -114,7 +151,7 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                 <form
                     id="data_form"
                     className="relative rounded-md w-full sm:max-w-xl z-50 px-6 sm:mx-0 mx-2 bg-white py-6"
-                    onSubmit={(e) => formSubmited(e)}
+                    // onSubmit={(e) => formSubmited(e)}
                 >
                     {!message.length ? (
                         <div className="flex flex-col gap-2">
@@ -129,14 +166,14 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                                 <input onChange={(e) => handleChange('email', e.target.value)} value={data.email} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="text" id="email" name="email" placeholder="Insira seu melhor e-mail" required autoComplete="email" />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <input onChange={(e) => handleChange('phone', e.target.value)} value={data.phone} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="tel" id="tel" name="phone" maxLength={16} placeholder="WhatsApp: (00) 00000-0000" required />
+                                <input onChange={(e) => handleChange('phone', e.target.value)} value={data.phone} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="tel" id="tel" name="phone" maxLength={14} placeholder="WhatsApp: (00) 00000-0000" required />
                             </div>
                             <div className="flex flex-col gap-1">
                                 <input onChange={(e) => handleChange('cnpj', e.target.value)} value={data.cnpj} className="text-zinc-600 text-sm outline-none rounded-md py-2 px-3 bg-zinc-100" type="cnpj" name="cnpj" minLength={18} maxLength={18} placeholder="CNPJ" required />
                                 <p className="text-xs text-zinc-500 translate-x-3">Para CNPJ, siga o formato: 00.000.000/0001-00</p>
                             </div>
                             {fieldsOk ? (
-                                <button id={'btn-ok'} className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
+                                <button onClick={() => formSubmited()} id={'btn-ok'} className="w-full text-sm sm:text-base text-center flex items-center justify-center gap-2 px-6 py-2 font-semibold text-white bg-[#01b013] hover:bg-[#01b013de] transition rounded-md" type="submit">
                                     {!loading ? (
                                         <span>Agendar demonstração</span>
                                     ) : (
@@ -154,13 +191,6 @@ export function Form({ utm_campaign, utm_content, utm_medium, utm_source, utm_te
                                     <span>Preencha os campos acima</span>
                                 </button>
                             )}
-                            <div>
-                                <input type="hidden" id="utm_term" value={utm_term || 'AQUI'} name="utm_term" placeholder="utm_term" />
-                                <input type="hidden" id="utm_medium" value={utm_medium || 'AQUI'} name="utm_medium" placeholder="utm_medium" />
-                                <input type="hidden" id="utm_content" value={utm_content || 'AQUI'} name="utm_content" placeholder="utm_content" />
-                                <input type="hidden" id="utm_campaign" value={utm_campaign || 'AQUI'} name="utm_campaign" placeholder="utm_campaign" />
-                                <input type="hidden" id="utm_source" value={utm_source || 'AQUI'} name="utm_source" placeholder="utm_source" />
-                            </div>
                         </div>
                     ) : (
                         <div className="h-[356px] sm:h-[576px] flex flex-col justify-center text-center gap-2">
